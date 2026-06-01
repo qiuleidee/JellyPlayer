@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# 大体积构建环境与打包产物
+android/jdk17
+*.zip
