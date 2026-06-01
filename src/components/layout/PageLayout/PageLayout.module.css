@@ -1,0 +1,52 @@
+/* ====== PageLayout 页面布局组件 ====== */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-base);
+}
+
+.layout-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 主内容区：为悬浮侧边栏预留出基础左侧空间 (16px left + 64px width + 16px gap = 96px) */
+.layout-main {
+  flex: 1;
+  padding-left: 96px;
+  /* 移除随展开而过渡的 transition，因为展开状态现在属于 overlay 叠加模式 */
+}
+
+@media (max-width: 639px) {
+  .layout-main {
+    padding-left: 0;
+    /* 底部导航栏高度 + 距离底部的边距 + 额外的安全区域缓冲 */
+    padding-bottom: calc(var(--bottomnav-height) + var(--space-8) + env(safe-area-inset-bottom));
+  }
+}
+
+/* 页面内容容器 */
+.page-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+/* 全宽页面（首页 Hero 等） */
+.page-container-full {
+  width: 100%;
+  padding: 0;
+}
+
+/* 页面标题 */
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+}

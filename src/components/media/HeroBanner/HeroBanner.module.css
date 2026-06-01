@@ -1,0 +1,178 @@
+/* ====== HeroBanner 组件 ====== */
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 500px;
+  background: var(--bg-base);
+  overflow: hidden;
+  /* 取消 margin-bottom，让下方的 Shelf 自然滑入渐变遮罩中 */
+}
+
+@media (min-width: 640px) {
+  .hero-container {
+    height: 85vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-container {
+    height: 95vh;
+  }
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0.9;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* Apple TV 级深邃渐变过渡：更长距离的底部黑场延展，完全掩盖图片下边界，并融入环境底色 */
+  background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-base) 90%, transparent) 0%,
+      color-mix(in srgb, var(--bg-base) 60%, transparent) 25%,
+      color-mix(in srgb, var(--bg-base) 20%, transparent) 45%,
+      transparent 70%
+    ),
+    linear-gradient(
+      0deg,
+      var(--bg-base) 0%,
+      var(--bg-base) 15%,
+      color-mix(in srgb, var(--bg-base) 80%, transparent) 30%,
+      color-mix(in srgb, var(--bg-base) 30%, transparent) 50%,
+      transparent 75%
+    );
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-6) var(--space-4) calc(var(--space-8) + var(--space-4));
+  max-width: 800px;
+  z-index: 2;
+}
+
+@media (min-width: 640px) {
+  .hero-content {
+    padding: var(--space-8) var(--space-8) calc(var(--space-10) + var(--space-6));
+  }
+}
+
+.hero-logo {
+  max-width: min(80vw, 320px);
+  max-height: 100px;
+  margin-bottom: var(--space-4);
+  object-fit: contain;
+  object-position: left bottom;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); /* 增加 Logo 层次感 */
+  transition: all var(--dur-normal);
+}
+
+@media (min-width: 640px) {
+  .hero-logo {
+    max-width: 450px;
+    max-height: 160px;
+    margin-bottom: var(--space-6);
+  }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-tight);
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: var(--text-hero);
+  }
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.hero-overview {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  opacity: 0.85;
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+  max-width: 650px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* 增强文字在复杂背景下的可读性 */
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+@media (max-width: 639px) {
+  .hero-actions {
+    gap: var(--space-3);
+  }
+}
+
+/* 轮播指示器 */
+.hero-indicators {
+  position: absolute;
+  bottom: var(--space-6);
+  right: var(--space-8);
+  display: flex;
+  gap: var(--space-2);
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: hsla(0, 0%, 100%, 0.2);
+  transition: all var(--dur-normal) var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.indicator-active {
+  width: 32px;
+  background: hsla(0, 0%, 100%, 0.3);
+}
+
+.indicator-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+
+/* 动画切换容器 */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+}

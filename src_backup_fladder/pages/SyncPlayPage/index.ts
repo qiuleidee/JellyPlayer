@@ -1,0 +1,1 @@
+export { SyncPlayPage } from './SyncPlayPage';

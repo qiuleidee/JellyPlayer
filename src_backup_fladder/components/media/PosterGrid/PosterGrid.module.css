@@ -1,0 +1,32 @@
+/* ====== PosterGrid 组件 ====== */
+
+.grid-container {
+  width: 100%;
+  position: relative;
+}
+
+.grid-virtual-container {
+  width: 100%;
+  position: relative;
+}
+
+.grid-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: var(--space-4);
+}
+
+.grid-item {
+  /* 会在内联样式中设置确切的 flex 宽度 */
+  flex-shrink: 0;
+}
+
+.loading-more {
+  padding: var(--space-6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

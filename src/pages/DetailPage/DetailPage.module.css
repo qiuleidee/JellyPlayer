@@ -1,0 +1,350 @@
+/* ====== DetailPage ====== */
+.detail-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* 沉浸式全屏背景 */
+.backdrop-container {
+  position: absolute;
+  top: 0;
+  left: -96px; /* 抵消 sidebar 的 padding */
+  width: 100vw;
+  height: 100vh; /* Apple TV 全屏沉浸式背景 */
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none; /* 防止遮挡交互 */
+}
+
+@media (max-width: 639px) {
+  .backdrop-container {
+    left: 0;
+  }
+}
+
+.backdrop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+}
+
+.backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  /* 苹果风 Apple TV 渐变遮罩：左下角极深，向右上角逐渐褪晕 */
+  background: 
+    linear-gradient(to top, var(--bg-base) 0%, color-mix(in srgb, var(--bg-base) 90%, transparent) 15%, color-mix(in srgb, var(--bg-base) 60%, transparent) 40%, transparent 80%),
+    linear-gradient(to right, var(--bg-base) 0%, color-mix(in srgb, var(--bg-base) 80%, transparent) 30%, transparent 70%);
+}
+
+/* 内容层 */
+.content-layer {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-8) var(--space-6);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .content-layer {
+    padding-top: 10vh; /* 用户反馈留白太大，现修改为更紧凑的 10% 视口高度留白 */
+  }
+}
+
+/* 顶部元数据区：海报 + 信息 */
+.meta-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .meta-section {
+    flex-direction: column; /* 去掉双列布局，回归单列无边框沉浸流 */
+    align-items: flex-start;
+  }
+}
+
+/* 彻底干掉海报容器相关的代码，现在是全沉浸设计了 */
+
+.info-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  /* 移除了突兀的毛玻璃白板，让内容与背景融为一体 */
+  padding: 0;
+}
+
+.logo-image {
+  max-width: 480px;
+  max-height: 160px;
+  object-fit: contain;
+  object-position: left;
+  margin-bottom: var(--space-2);
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); /* 增加 Logo 立体感 */
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5vw, 4.5rem); /* 缩小移动端下限，优化手机排版 */
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.1;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.tagline {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* C-3: 元数据行 */
+.meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.genres {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* C-4: 简介展开/收起 */
+.overview-container {
+  max-width: 800px;
+}
+
+.overview {
+  font-size: 1.1rem; /* 稍微放大简介字体，提升影视化阅读感 */
+  color: color-mix(in srgb, var(--text-primary) 85%, transparent);
+  font-weight: 400;
+  line-height: 1.6;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  transition: all var(--dur-normal) var(--ease-out);
+  cursor: pointer;
+  max-width: 800px;
+}
+
+.overview:hover {
+  color: var(--text-primary);
+}
+
+.overview-toggle {
+  margin-top: var(--space-2);
+  color: var(--text-secondary); /* 改为优雅的高级灰，不再使用亮橙色 */
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.overview-toggle:hover {
+  color: var(--text-primary);
+}
+
+/* 操作按钮大容器 */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  width: 100%;
+}
+
+.actions-primary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.btn-play-huge {
+  flex: 1; /* 主播放按钮占满整行 */
+  max-width: 400px;
+  height: 56px;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.btn-play-huge:hover,
+.btn-play-huge.focused {
+  transform: scale(1.02);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+.btn-play-huge.focused {
+  outline: 4px solid rgba(255,255,255,0.9);
+  outline-offset: 4px;
+}
+
+/* 次级操作横向滚动区 */
+.actions-secondary {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+  /* 隐藏滚动条 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.actions-secondary::-webkit-scrollbar {
+  display: none;
+}
+
+/* 小圆形按钮 */
+.action-circle-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px;
+  margin: -4px;
+  transition: transform 0.2s;
+}
+
+.action-circle-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--dur-fast);
+}
+
+.action-circle-wrap:hover .action-circle-btn,
+.action-circle-wrap.focused .action-circle-btn {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.action-circle-wrap.focused {
+  outline: 3px solid rgba(255,255,255,0.8);
+  outline-offset: 2px;
+}
+
+.action-circle-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* C-5: Tooltip */
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.tooltip-wrap::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--dur-fast);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-default);
+  z-index: 10;
+}
+
+.tooltip-wrap:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* C-6: 移动端全宽堆叠和居中展示 */
+@media (max-width: 767px) {
+  .content-layer {
+    padding-bottom: calc(var(--bottomnav-height) + env(safe-area-inset-bottom) + 80px);
+  }
+
+  .meta-section {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .poster-container {
+    width: 200px;
+  }
+
+  .title {
+    font-size: var(--text-3xl);
+  }
+
+  .actions-primary {
+    flex-direction: column;
+    align-items: center; /* 居中显示 */
+  }
+  
+  .btn-play-huge {
+    flex: 0 0 auto;
+    width: 240px; /* 取消 100% 全宽，改为定宽精致胶囊 */
+    max-width: none;
+  }
+  
+  .meta-row {
+    justify-content: center;
+  }
+  
+  .badges {
+    justify-content: center;
+  }
+  
+  .genres {
+    justify-content: center;
+  }
+}

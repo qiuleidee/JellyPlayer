@@ -1,0 +1,43 @@
+/* ====== LazyImage 懒加载图片组件 ====== */
+
+.lazy-image-container {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.lazy-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--dur-slow) var(--ease-smooth);
+}
+
+.lazy-image-placeholder.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lazy-image-placeholder canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lazy-image-fallback {
+  color: var(--text-tertiary);
+}
+
+.lazy-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-smooth);
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}

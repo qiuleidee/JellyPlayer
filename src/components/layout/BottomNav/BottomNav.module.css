@@ -1,0 +1,74 @@
+/* ====== BottomNav 组件 ====== */
+
+.bottom-nav {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom) + var(--space-4));
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    min-width: min(340px, calc(100vw - 32px));
+    height: var(--bottomnav-height);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-tv);
+    z-index: var(--z-sticky);
+    padding: 0 var(--space-2);
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 0 var(--space-3);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all var(--dur-fast) var(--ease-out);
+    border-radius: var(--radius-xl);
+  }
+
+  .nav-item:hover,
+  .nav-item.focused {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+  }
+
+  .nav-item.focused {
+    outline: 2px solid rgba(255,255,255,0.8);
+    outline-offset: -2px;
+  }
+
+  .nav-item-active {
+    color: var(--accent);
+    text-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--dur-fast);
+  }
+
+  .nav-item-active .nav-icon {
+    transform: scale(1.1);
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: var(--weight-medium);
+  }
+}

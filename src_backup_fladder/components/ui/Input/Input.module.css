@@ -1,0 +1,145 @@
+/* ====== Input 输入框组件 ====== */
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.input-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  height: 44px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--dur-fast) var(--ease-smooth),
+    box-shadow var(--dur-fast) var(--ease-smooth),
+    background-color var(--dur-fast) var(--ease-smooth);
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.input:hover {
+  border-color: var(--border-strong);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+  background: var(--bg-surface);
+}
+
+.input-error .input {
+  border-color: var(--color-red);
+}
+
+.input-error .input:focus {
+  box-shadow: 0 0 0 3px hsla(0, 80%, 58%, 0.15);
+}
+
+.input-lg .input {
+  height: 52px;
+  font-size: var(--text-lg);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+/* 带图标 */
+.has-left-icon .input {
+  padding-left: calc(var(--space-4) + 24px + var(--space-2));
+}
+
+.has-right-icon .input {
+  padding-right: calc(var(--space-4) + 24px + var(--space-2));
+}
+
+.input-icon-left {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+
+.input-icon-right {
+  position: absolute;
+  right: var(--space-4);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+
+.input-icon-right:hover {
+  color: var(--text-secondary);
+}
+
+.input:focus ~ .input-icon-left {
+  color: var(--accent);
+}
+
+/* 状态指示灯 */
+.input-status {
+  position: absolute;
+  right: var(--space-4);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: background-color var(--dur-normal) var(--ease-smooth);
+}
+
+.input-status-checking {
+  background: var(--color-yellow);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.input-status-success {
+  background: var(--color-green);
+  box-shadow: 0 0 8px hsla(155, 70%, 48%, 0.4);
+}
+
+.input-status-error {
+  background: var(--color-red);
+  box-shadow: 0 0 8px hsla(0, 80%, 58%, 0.4);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* 错误提示 */
+.input-error-message {
+  font-size: var(--text-xs);
+  color: var(--color-red);
+  padding-left: var(--space-1);
+}
+
+/* 辅助文字 */
+.input-hint {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  padding-left: var(--space-1);
+}

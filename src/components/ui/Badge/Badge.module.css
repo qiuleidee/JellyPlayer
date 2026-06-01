@@ -1,0 +1,93 @@
+/* ====== Badge 徽章组件 ====== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1;
+}
+
+/* 尺寸 */
+.badge-xs {
+  height: 18px;
+  padding: 0 5px;
+  font-size: 10px;
+  border-radius: 4px;
+}
+
+.badge-sm {
+  height: 22px;
+  padding: 0 7px;
+  font-size: var(--text-xs);
+  border-radius: 5px;
+}
+
+.badge-md {
+  height: 26px;
+  padding: 0 10px;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* 样式变体 */
+.badge-filled {
+  color: var(--text-inverse);
+}
+
+.badge-subtle {
+  border: 1px solid transparent;
+}
+
+.badge-outline {
+  background: transparent;
+  border: 1px solid;
+}
+
+/* 颜色 */
+.badge-default.badge-filled { background: var(--bg-hover); color: var(--text-primary); }
+.badge-default.badge-subtle { background: var(--bg-elevated); color: var(--text-secondary); }
+.badge-default.badge-outline { border-color: var(--border-default); color: var(--text-secondary); }
+
+.badge-accent.badge-filled { background: var(--accent); }
+.badge-accent.badge-subtle { background: var(--accent-subtle); color: var(--accent); }
+.badge-accent.badge-outline { border-color: var(--accent); color: var(--accent); }
+
+.badge-green.badge-filled { background: var(--color-green); }
+.badge-green.badge-subtle { background: hsla(155, 70%, 48%, 0.12); color: var(--color-green); }
+.badge-green.badge-outline { border-color: var(--color-green); color: var(--color-green); }
+
+.badge-red.badge-filled { background: var(--color-red); }
+.badge-red.badge-subtle { background: hsla(0, 80%, 58%, 0.12); color: var(--color-red); }
+.badge-red.badge-outline { border-color: var(--color-red); color: var(--color-red); }
+
+.badge-blue.badge-filled { background: var(--color-blue); }
+.badge-blue.badge-subtle { background: hsla(210, 85%, 58%, 0.12); color: var(--color-blue); }
+.badge-blue.badge-outline { border-color: var(--color-blue); color: var(--color-blue); }
+
+.badge-yellow.badge-filled { background: var(--color-yellow); color: var(--text-inverse); }
+.badge-yellow.badge-subtle { background: hsla(45, 90%, 55%, 0.12); color: var(--color-yellow); }
+.badge-yellow.badge-outline { border-color: var(--color-yellow); color: var(--color-yellow); }
+
+.badge-purple.badge-filled { background: var(--color-purple); }
+.badge-purple.badge-subtle { background: hsla(270, 75%, 60%, 0.12); color: var(--color-purple); }
+.badge-purple.badge-outline { border-color: var(--color-purple); color: var(--color-purple); }
+
+/* 特殊：分辨率/编码标签 (Apple TV 级毛玻璃质感) */
+.badge-4k, .badge-hdr, .badge-dv, .badge-atmos {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.5px;
+}
+
+.badge-4k { color: var(--badge-4k); }
+.badge-hdr { color: var(--badge-hdr); }
+.badge-dv { color: var(--badge-dv); }
+.badge-atmos { color: var(--badge-atmos); }

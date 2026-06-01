@@ -1,0 +1,264 @@
+/* ====== DetailPage ====== */
+.detail-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* 沉浸式全屏背景 */
+.backdrop-container {
+  position: absolute;
+  top: 0;
+  left: -50vw;
+  width: 200vw;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none; /* 防止遮挡交互 */
+}
+
+.backdrop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  filter: blur(10px); /* 降低模糊度，使背景内容清晰可见 */
+  transform: scale(1.05);
+}
+
+.backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-base);
+  opacity: 0.45; /* 大幅降低遮罩浓度，让背景图完全透出 */
+}
+
+/* 内容层 */
+.content-layer {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-8) var(--space-6);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .content-layer {
+    padding-top: 15vh;
+  }
+}
+
+/* 顶部元数据区：海报 + 信息 */
+.meta-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .meta-section {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.poster-container {
+  width: 240px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+/* C-2: 增加类似 Apple TV 的内发光边框效果 */
+.poster-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 0 0 1px var(--glass-border), inset 0 2px 4px var(--glass-border);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .poster-container {
+    width: 300px;
+  }
+}
+
+.poster-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.logo-image {
+  max-width: 400px;
+  max-height: 120px;
+  object-fit: contain;
+  object-position: left;
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+.tagline {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* C-3: 元数据行 */
+.meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.genres {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* C-4: 简介展开/收起 */
+.overview-container {
+  max-width: 800px;
+}
+
+.overview {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  font-weight: 400;
+  line-height: var(--leading-relaxed);
+  transition: all var(--dur-normal) var(--ease-out);
+  cursor: pointer;
+}
+
+.overview:hover {
+  color: var(--text-primary);
+}
+
+.overview-toggle {
+  margin-top: var(--space-2);
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.overview-toggle:hover {
+  text-decoration: underline;
+}
+
+/* 操作按钮 */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* C-5: Tooltip */
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.tooltip-wrap::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--dur-fast);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-default);
+  z-index: 10;
+}
+
+.tooltip-wrap:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* C-6: 移动端全宽堆叠和居中展示 */
+@media (max-width: 767px) {
+  .meta-section {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .poster-container {
+    width: 200px;
+  }
+
+  .title {
+    font-size: var(--text-3xl);
+  }
+
+  .actions {
+    justify-content: center;
+  }
+  
+  .meta-row {
+    justify-content: center;
+  }
+  
+  .badges {
+    justify-content: center;
+  }
+  
+  .genres {
+    justify-content: center;
+  }
+}
