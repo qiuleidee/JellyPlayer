@@ -1,3 +1,9 @@
+import 'intersection-observer';
+import ResizeObserverPolyfill from 'resize-observer-polyfill';
+if (!window.ResizeObserver) {
+  window.ResizeObserver = ResizeObserverPolyfill;
+}
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
