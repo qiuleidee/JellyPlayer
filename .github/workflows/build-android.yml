@@ -38,12 +38,12 @@ jobs:
       - name: 生成原生代码引擎 (Expo Prebuild)
         run: npx expo prebuild --platform android --clean
 
-      - name: 执行 Gradle 编译打包
+      - name: 执行 Gradle 编译打包 (Release)
         working-directory: ./android-app/android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleRelease
 
       - name: 上传 APK 文件供下载
         uses: actions/upload-artifact@v4
         with:
           name: jellyplayer-android-apk
-          path: android-app/android/app/build/outputs/apk/debug/app-debug.apk
+          path: android-app/android/app/build/outputs/apk/release/app-release.apk
